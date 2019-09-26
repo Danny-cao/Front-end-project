@@ -22,14 +22,33 @@ export class AuthService {
     return this.afAuth.authState;
   }    
 
+  checkUserEnabled(email: string){
+
+    // Als gebruikers status op "enabled" staat dan geef terug "true" anders "false"
+
+    // nog check nodig. buiten de scope
+    this.db.collection("Users").doc(email).valueChanges().subscribe(val => {if(val['status'] == true) return true;});
+    
+    return true;
+  }
+
   login(email: string, password: string){
-    this.afAuth.auth.signInWithEmailAndPassword(email, password).catch(error => {
-      this.eventAuthError.next(error)
-    }).then(userCredential => {
-      if(userCredential){
-        this.router.navigate(['/home']);
-      }
-    })
+
+    // controleer eerst of gebruiker is bevestigd door beheerder.
+    ;
+    if(this.checkUserEnabled(email)){
+      this.afAuth.auth.signInWithEmailAndPassword(email, password).catch(error => {
+        this.eventAuthError.next(error)
+      }).then(userCredential => {
+        if(userCredential){
+          this.router.navigate(['/home']);
+        }
+      })    
+    }else{
+      // hier moet nog mooie error terugkrijgen.
+      this.router.navigate(['/register']);
+    }
+
   }
 
   createUser(user) {
@@ -49,8 +68,7 @@ export class AuthService {
   }
 
   insertUserData(userCredential: firebase.auth.UserCredential){
-    return this.db.doc(`Users/${userCredential.user.uid}`).set({
-      email: this.newUser.email,
+    return this.db.doc(`Users/${this.newUser.email}`).set({
       firstname: this.newUser.firstName,
       lastname: this.newUser.lastName,
       role: 'student',
