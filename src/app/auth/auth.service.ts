@@ -3,6 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { LoginComponent } from './login/login.component';
+import { auth } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -22,33 +24,30 @@ export class AuthService {
     return this.afAuth.authState;
   }    
 
-  checkUserEnabled(email: string){
+  checkUserEnabled(email: string, password: string){
 
-    // Als gebruikers status op "enabled" staat dan geef terug "true" anders "false"
-
-    // nog check nodig. buiten de scope
-    this.db.collection("Users").doc(email).valueChanges().subscribe(val => {if(val['status'] == true) return true;});
-    
-    return true;
+    // Als gebruikers status op "true" staat dan login anders terug sturen naar homepagina.
+    this.db.collection("Users").doc(email).valueChanges().subscribe(val => {
+      console.log(val['status']);
+      if(val['status'] == true){
+        this.login(email, password);
+      }
+      else {
+        this.router.navigate(['/home'])
+      }
+    });
   }
 
   login(email: string, password: string){
 
     // controleer eerst of gebruiker is bevestigd door beheerder.
-    ;
-    if(this.checkUserEnabled(email)){
-      this.afAuth.auth.signInWithEmailAndPassword(email, password).catch(error => {
-        this.eventAuthError.next(error)
-      }).then(userCredential => {
-        if(userCredential){
-          this.router.navigate(['/home']);
-        }
-      })    
-    }else{
-      // hier moet nog mooie error terugkrijgen.
-      this.router.navigate(['/register']);
-    }
-
+    this.afAuth.auth.signInWithEmailAndPassword(email, password).catch(error => {
+      this.eventAuthError.next(error)
+    }).then(userCredential => {
+      if(userCredential){
+        this.router.navigate(['/home']);
+      }
+    })    
   }
 
   createUser(user) {
