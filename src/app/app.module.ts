@@ -15,13 +15,15 @@ import { environment } from 'src/environments/environment';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
+import { ValidationComponent } from './admin/validation/validation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ValidationComponent,
   ],
   imports: [
     BrowserModule,
