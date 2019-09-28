@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ValidationService } from '../validation.service';
 
 @Component({
   selector: 'app-validation',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValidationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private validation: ValidationService) { }
 
   ngOnInit() {
+    this.getUsers();
+  }
+
+  getUsers(){
+    this.validation.getRegisteredUsers();
   }
 
 }
