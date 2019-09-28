@@ -33,7 +33,8 @@ export class AuthService {
         this.login(email, password);
       }
       else {
-        this.router.navigate(['/home'])
+        var error = JSON.parse('{"message": "Je account is door de beheerder nog niet geactiveerd"}');
+        this.eventAuthError.next(error);
       }
     });
   }
@@ -42,6 +43,7 @@ export class AuthService {
 
     // controleer eerst of gebruiker is bevestigd door beheerder.
     this.afAuth.auth.signInWithEmailAndPassword(email, password).catch(error => {
+      console.log(error);
       this.eventAuthError.next(error)
     }).then(userCredential => {
       if(userCredential){
@@ -53,17 +55,19 @@ export class AuthService {
   createUser(user) {
     this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then( userCredential =>{
       this.newUser = user;
-      //console.log(userCredential);
       userCredential.user.updateProfile({
-        displayName: user.firstName + '' + user.lastName
+        displayName: user.firstName + ' ' + user.lastName
       });
 
       this.insertUserData(userCredential).then(() => {
+        this.logout();
         this.router.navigate(['/home']);
       });
     }).catch( error => {
       this.eventAuthError.next(error);
     })
+
+
   }
 
   insertUserData(userCredential: firebase.auth.UserCredential){
