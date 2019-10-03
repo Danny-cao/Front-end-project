@@ -29,11 +29,15 @@ export class AuthService {
     // Als gebruikers status op "true" staat dan login anders terug sturen naar homepagina.
     this.db.collection("Users").doc(email).valueChanges().subscribe(val => {
       console.log(val['status']);
-      if(val['status'] == true){
+      if(val['status'] == 'activated'){
         this.login(email, password);
       }
-      else {
+      else if(val['status'] == 'disabled'){
         var error = JSON.parse('{"message": "Je account is door de beheerder nog niet geactiveerd"}');
+        this.eventAuthError.next(error);
+      }
+      else{
+        var error = JSON.parse('{"message": "Je account is door de beheerder afgewezen."}');
         this.eventAuthError.next(error);
       }
     });
@@ -72,6 +76,7 @@ export class AuthService {
 
   insertUserData(userCredential: firebase.auth.UserCredential){
     return this.db.doc(`Users/${this.newUser.email}`).set({
+      email: this.newUser.email,
       firstname: this.newUser.firstName,
       lastname: this.newUser.lastName,
       role: 'student',
