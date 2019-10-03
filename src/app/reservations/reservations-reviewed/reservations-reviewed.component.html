@@ -1,0 +1,32 @@
+<div *ngIf="reservations?.length > 0;else noReservations">
+    
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">E-Mail</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Start Tijd</th>
+                <th scope="col">Eind Tijd</th>
+                <th scope="col">Status</th>
+                <th scope="col">Beschrijving</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let reservation of reservationsReviewed">
+                <td>{{ reservation.email }}</td>
+                <td>{{ reservation.date }}</td>
+                <td>{{ reservation.starttime }}</td>
+                <td>{{ reservation.endtime }}</td>
+                <td>{{ reservation.status }}</td>
+                <td>{{ reservation.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #noReservations>
+    <hr>
+    <h5>Er zijn geen reserveringen.</h5>
+</ng-template>
+
