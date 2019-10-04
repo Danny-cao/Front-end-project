@@ -16,6 +16,8 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ValidationComponent } from './admin/validation/validation.component';
+import { ReservationsReviewedComponent } from './reservations/reservations-reviewed/reservations-reviewed.component';
+import { ReservationsCancelComponent } from './reservations/reservations-cancel/reservations-cancel.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { ValidationComponent } from './admin/validation/validation.component';
     LoginComponent,
     HomeComponent,
     ValidationComponent,
+    ReservationsReviewedComponent,
+    ReservationsCancelComponent
   ],
   imports: [
     BrowserModule,
