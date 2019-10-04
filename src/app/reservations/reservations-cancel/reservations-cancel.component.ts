@@ -11,9 +11,10 @@ import { AuthService } from '../../auth/auth.service';
 export class ReservationsCancelComponent implements OnInit {
   reservations: Reservation[];
   user: firebase.User;
-  mijnReservations: Reservation[];
+  mijnReservations: Reservation[] = [];
+  bericht: string;
 
-  constructor(private reservationsService: ReservationsService, private auth: AuthService) { }
+  constructor(private reservationsService: ReservationsService, private auth: AuthService) {}
 
   ngOnInit() {
     this.auth.getUserState().subscribe( user => {
@@ -27,8 +28,22 @@ export class ReservationsCancelComponent implements OnInit {
 
   }
 
-  cancelReservation(id: string) {
-    this.reservationsService.cancelReservation(id);
+  cancelReservation(id: string, status: string) {
+    if (status !== 'geannuleerd') {
+      this.reservationsService.cancelReservation(id);
+      this.bericht = 'Reservering Geannuleerd';
+    } else {
+      this.bericht = 'Reservering was al geannuleerd';
+    }
+
+  }
+
+  getMijnReservations() {
+    for (const reservation of this.reservations) {
+      if (reservation.email === this.user.email) {
+        this.mijnReservations.push(reservation);
+      }
+    }
   }
 
 

@@ -14,14 +14,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let reservation of reservations">
+                <tr *ngFor="let reservation of mijnReservations">
                         <td>{{ reservation.email }}</td>
                         <td>{{ reservation.date }}</td>
                         <td>{{ reservation.starttime }}</td>
                         <td>{{ reservation.endtime }}</td>
                         <td>{{ reservation.status }}</td>
                         <td>{{ reservation.description }}</td>
-                        <td><button (click)="cancelReservation(reservation.ID)" data-toggle="modal" data-target="#geslaagdModal">Annuleer</button></td>
+                        <td><button (click)="cancelReservation(reservation.ID, reservation.status)" data-toggle="modal" data-target="#geslaagdModal">Annuleer</button></td>  
                 </tr>
             </tbody>
         </table>
@@ -36,7 +36,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Reservering Geannuleerd</h5>
+              <h5 class="modal-title" id="exampleModalLabel">{{ bericht }}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -49,4 +49,4 @@
         </div>
 </div>
 
-
+<button (click)="getMijnReservations()">laad reservations test</button>
