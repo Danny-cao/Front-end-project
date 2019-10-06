@@ -18,7 +18,6 @@ export class ValidationService {
     
   }
 
-
   getRegisteredUsers(){
     return this.registrations;
   }

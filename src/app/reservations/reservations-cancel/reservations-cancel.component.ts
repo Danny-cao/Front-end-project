@@ -19,13 +19,13 @@ export class ReservationsCancelComponent implements OnInit {
   ngOnInit() {
     this.auth.getUserState().subscribe( user => {
       this.user = user;
-      console.log(this.user.email);
+      
     });
 
     this.reservationsService.reservations.subscribe(reservations => {
       this.reservations = reservations;
-    });
-
+      this.getMijnReservations();
+    })
   }
 
   cancelReservation(id: string, status: string) {
