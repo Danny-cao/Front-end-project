@@ -16,6 +16,11 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ValidationComponent } from './admin/validation/validation.component';
+import { VerzoekService } from './verzoek/verzoek.service';
+import { BeoordelingComponent } from './beoordeling/beoordeling.component';
+import { MAT_DATE_LOCALE } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from './material';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,8 @@ import { ValidationComponent } from './admin/validation/validation.component';
     LoginComponent,
     HomeComponent,
     ValidationComponent,
+    VerzoekComponent,
+    BeoordelingComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +38,12 @@ import { ValidationComponent } from './admin/validation/validation.component';
     FormsModule,
     AngularFireModule.initializeApp( environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+     BrowserModule,
+     BrowserAnimationsModule,
+    MaterialModule,
   ],
-  providers: [],
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},VerzoekService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
