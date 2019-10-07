@@ -24,6 +24,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material';
 import { VerzoekComponent } from './verzoek/verzoek.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { VerzoekComponent } from './verzoek/verzoek.component';
     VerzoekComponent,
     BeoordelingComponent,
     ReservationsReviewedComponent,
-    ReservationsCancelComponent
+    ReservationsCancelComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

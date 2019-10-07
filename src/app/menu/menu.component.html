@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="home">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="user && registration?.role == 'beheerder'">
+          <a class="nav-link" href="validation">Registraties</a>
+        </li>
+        <li class="nav-item" *ngIf="user && registration?.role == 'student'">
+            <a class="nav-link" href="verzoek">Reserveren</a>
+        </li>
+        <li class="nav-item" *ngIf="user && registration?.role == 'beheerder'">
+            <a class="nav-link" href="beoordeling">Reserveringen beheren</a>
+        </li>
+        <li class="nav-item" *ngIf="user && registration?.role == 'student'">
+            <a class="nav-link" href="reservationCancel">Reserveringen</a>
+        </li>
+        <li class="nav-item" *ngIf="user && registration?.role == 'beheerder'">
+            <a class="nav-link" href="reservationReview">Reserverings overzicht</a>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-primary mr-2" *ngIf="!user" (click)="register()">Register</button>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-primary" *ngIf="!user" (click)="login()">Login</button>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-primary" *ngIf="user" (click)="logout()">Logout</button>
+        </li>
+        <li class="nav-item">    
+            <button class="btn btn-info disabled" *ngIf="user">Ingelogd als: {{ user?.email }}</button>
+        </li>
+      </ul>
+    </div>
+</nav>
+  
