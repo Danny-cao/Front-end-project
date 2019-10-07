@@ -1,0 +1,53 @@
+.fixed-calendar {
+    width: 450px;
+    margin: 50px auto;
+    display: block;
+
+
+  }
+.pop-up{
+    width:570px;
+    margin: auto;
+  
+}
+
+.pop-up{
+  display: flex;
+  justify-content: space-around;
+}
+  
+.example-full-width{
+  width: 300px;
+  margin: 60px auto;
+  display: block;
+}
+
+
+
+button{
+  display: block;
+  margin: 10px auto;
+  width:200px;
+  padding:5px;
+}
+
+.wrapper{
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+  width:600px;
+  height: 650px;
+  margin:auto;
+  padding: 10px;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.example-radio-button {
+  margin: 25px;
+ 
+}

@@ -18,6 +18,12 @@ import { HomeComponent } from './home/home.component';
 import { ValidationComponent } from './admin/validation/validation.component';
 import { ReservationsReviewedComponent } from './reservations/reservations-reviewed/reservations-reviewed.component';
 import { ReservationsCancelComponent } from './reservations/reservations-cancel/reservations-cancel.component';
+import { VerzoekService } from './verzoek/verzoek.service';
+import { BeoordelingComponent } from './beoordeling/beoordeling.component';
+import { MAT_DATE_LOCALE } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from './material';
+import { VerzoekComponent } from './verzoek/verzoek.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +32,8 @@ import { ReservationsCancelComponent } from './reservations/reservations-cancel/
     LoginComponent,
     HomeComponent,
     ValidationComponent,
+    VerzoekComponent,
+    BeoordelingComponent,
     ReservationsReviewedComponent,
     ReservationsCancelComponent
   ],
@@ -35,9 +43,12 @@ import { ReservationsCancelComponent } from './reservations/reservations-cancel/
     FormsModule,
     AngularFireModule.initializeApp( environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+     BrowserModule,
+     BrowserAnimationsModule,
+    MaterialModule,
   ],
-  providers: [],
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},VerzoekService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

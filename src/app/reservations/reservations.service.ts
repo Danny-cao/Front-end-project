@@ -30,7 +30,5 @@ export class ReservationsService {
       status: 'geannuleerd'
     });
   }
-
-
 }
 
