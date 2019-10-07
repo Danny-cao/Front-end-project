@@ -16,11 +16,14 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ValidationComponent } from './admin/validation/validation.component';
+import { ReservationsReviewedComponent } from './reservations/reservations-reviewed/reservations-reviewed.component';
+import { ReservationsCancelComponent } from './reservations/reservations-cancel/reservations-cancel.component';
 import { VerzoekService } from './verzoek/verzoek.service';
 import { BeoordelingComponent } from './beoordeling/beoordeling.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material';
+import { VerzoekComponent } from './verzoek/verzoek.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import {MaterialModule} from './material';
     ValidationComponent,
     VerzoekComponent,
     BeoordelingComponent,
+    ReservationsReviewedComponent,
+    ReservationsCancelComponent
   ],
   imports: [
     BrowserModule,

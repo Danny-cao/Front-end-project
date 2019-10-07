@@ -4,6 +4,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { HomeComponent } from './home/home.component';
 import { ValidationComponent } from './admin/validation/validation.component';
+import { VerzoekComponent } from './verzoek/verzoek.component';
+import { BeoordelingComponent } from './beoordeling/beoordeling.component';
 
 
 const routes: Routes = [
@@ -22,6 +24,14 @@ const routes: Routes = [
   {
     path: 'validation',
     component: ValidationComponent
+  },
+  {
+    path: 'verzoek',
+    component: VerzoekComponent
+  },
+  {
+    path: 'beoordeling',
+    component: BeoordelingComponent
   },
   {
     path: '',
