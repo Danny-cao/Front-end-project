@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginComponent } from './login/login.component';
 import { auth } from 'firebase';
+import { Registration } from './registration/registrationModel/registration';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AuthService {
   private eventAuthError = new BehaviorSubject<string>("");
   eventAuthError$ = this.eventAuthError.asObservable();
   newUser: any;
+  registration : Observable<Registration>;
 
   constructor(
     private afAuth: AngularFireAuth, 
@@ -87,4 +89,11 @@ export class AuthService {
   logout(){
     return this.afAuth.auth.signOut();
   }
+
+  checkUserRole(email){
+    this.registration = this.db.collection("Users").doc(email).valueChanges();
+    return this.registration;
+  }
+
+
 }
