@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,12 +16,21 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 
+import { ReservationsComponent } from './user/reservations/reservations.component';
+import { ReservationsService } from './reservations.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AngularMaterialModule } from './angular-material.module';
+import { MyModalComponent } from './user/reservations/my-modal/my-modal.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ReservationsComponent,
+    MyModalComponent
   ],
   imports: [
     BrowserModule,
@@ -29,9 +38,13 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     AngularFireModule.initializeApp( environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
+    AngularMaterialModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ReservationsService],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [MyModalComponent]
 })
 export class AppModule { }

@@ -1,0 +1,79 @@
+<table> 
+
+    <thead>
+
+        <tr>
+
+            <th>
+
+                datum
+
+            </th>
+
+            <th>
+
+                begintijd
+
+            </th>
+
+            <th>
+
+                eindtijd
+
+            </th>
+
+            <th>
+
+                beschrijving
+
+            </th>
+
+            <th>
+                
+                status
+
+            </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        <tr #statusButton *ngFor="let reservation of reservations" attr.data-id="{{reservation.ID}}">
+
+            <td>
+
+                {{reservation.date}}
+
+            </td>
+
+            <td>
+
+                {{reservation.starttime}}
+
+            </td>
+
+            <td>
+
+                {{reservation.endtime}}
+
+            </td>
+
+            <td>
+
+                {{reservation.description}}
+
+            </td>
+
+            <td>
+
+                <button mat-raised-button (click)="openDialog(statusButton)" > {{reservation.status}} </button>
+
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
