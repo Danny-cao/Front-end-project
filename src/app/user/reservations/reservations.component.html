@@ -1,4 +1,6 @@
-<table> 
+<h2>Reserveringen bekijken</h2>
+
+<table class = "center" > 
 
     <thead>
 
@@ -40,7 +42,7 @@
 
     <tbody>
 
-        <tr #statusButton *ngFor="let reservation of reservations" attr.data-id="{{reservation.ID}}">
+        <tr #statusButton *ngFor="let reservation of reservations" attr.status="{{reservation.status}}" attr.comment="{{reservation.teacherComment}}">
 
             <td>
 
@@ -50,13 +52,13 @@
 
             <td>
 
-                {{reservation.starttime}}
+                {{reservation.startTime}}
 
             </td>
 
             <td>
 
-                {{reservation.endtime}}
+                {{reservation.endTime}}
 
             </td>
 

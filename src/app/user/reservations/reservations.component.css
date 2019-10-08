@@ -1,5 +1,13 @@
 table {
 
-    text-align: left;
+    text-align: center;
+    border: 1px solid black;
+    padding: 15px;
 
 }
+
+td {
+    width: 150px;
+}
+
+.center { margin: 0px auto; }

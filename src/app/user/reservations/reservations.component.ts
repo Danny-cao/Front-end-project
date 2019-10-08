@@ -14,11 +14,11 @@ import { MyModalComponent } from './my-modal/my-modal.component';
 
 export class ReservationsComponent implements OnInit {
 
-  resID: string;
   resStatus: string;
-
+  resStatusBool: Boolean;
+  resComment: string;
   reservations: Reservation[];
-  reservationsBeoordeeld: Reservation;
+  reservationStatus: Reservation[];
 
   constructor(private reservationsService: ReservationsService, public dialog: MatDialog) {
 
@@ -27,15 +27,31 @@ export class ReservationsComponent implements OnInit {
   ngOnInit(){
     this.reservationsService.getReservations().subscribe(reservations => {
       this.reservations = reservations;
+      //console.log(this.reservations);
     });
+
+    this.reservationsService.getReservationQR().subscribe(result => {
+      this.reservationStatus = result;
+      //console.log(this.reservationStatus);
+    });
+
   }
 
   openDialog(el): void {
-    this.resID = el.getAttribute('data-id');
+    this.resStatus = el.getAttribute('status');
+    this.resComment = el.getAttribute('comment');
+
+    if (this.resStatus == "Accepted") {
+        this.resStatusBool = true;
+    }
+
+    if (this.resStatus == "Rejected") {
+        this.resStatusBool = false;
+    }
 
     const dialogRef = this.dialog.open(MyModalComponent, {
-      width: '250px',
-      data: { resID: this.resID }
+      width: '500px',
+      data: { resStatus: this.resStatusBool, resComment: this.resComment }
     });
   }
    

@@ -12,6 +12,7 @@ export class ReservationsService {
     reservationsCollection: AngularFirestoreCollection<Reservation>;
 
     reservations: Observable<Reservation[]>;
+    reservationStatus: Observable<Reservation[]>;
     reservationBeoordeeld: Observable<Reservation>;
 
     constructor(public afs: AngularFirestore){
@@ -20,6 +21,11 @@ export class ReservationsService {
     
     getReservations() {
         return this.reservations;
+    }
+
+    getReservationQR() {
+        //haal qr uit db
+        return this.reservationStatus = this.afs.collection('Reservations', ref => ref.where('status', '==', 'Rejected')).valueChanges();
     }
 
 }
