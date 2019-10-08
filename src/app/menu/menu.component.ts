@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     this.auth.getUserState().subscribe( user => {
       this.user = user;
-
+      console.log(user);
       if(user != null){
         this.getUserRole(user.email);
       }

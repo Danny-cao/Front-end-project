@@ -8,6 +8,7 @@ import { VerzoekComponent } from './verzoek/verzoek.component';
 import { BeoordelingComponent } from './beoordeling/beoordeling.component';
 import { ReservationsCancelComponent } from './reservations/reservations-cancel/reservations-cancel.component';
 import { ReservationsReviewedComponent } from './reservations/reservations-reviewed/reservations-reviewed.component';
+import { AuthGuard } from './core/auth.guard';
 
 
 const routes: Routes = [
@@ -25,23 +26,28 @@ const routes: Routes = [
   },
   {
     path: 'validation',
-    component: ValidationComponent
+    component: ValidationComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'verzoek',
-    component: VerzoekComponent
+    component: VerzoekComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'beoordeling',
-    component: BeoordelingComponent
+    component: BeoordelingComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'reservationCancel',
-    component: ReservationsCancelComponent
+    component: ReservationsCancelComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'reservationReview',
-    component: ReservationsReviewedComponent
+    component: ReservationsReviewedComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',

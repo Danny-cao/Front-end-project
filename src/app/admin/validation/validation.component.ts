@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ValidationService } from '../validation.service';
 import { AuthService } from '../../auth/auth.service';
 import { Registration } from '../../auth/registration/registrationModel/registration';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-validation',
@@ -12,13 +13,12 @@ export class ValidationComponent implements OnInit {
   registrations: Registration[];
   user: firebase.User;
 
-  constructor(private validation: ValidationService, private auth: AuthService) { }
+  constructor(private validation: ValidationService, private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
 
     this.auth.getUserState().subscribe( user => {
       this.user = user;
-      console.log(this.user.email);
     });
 
     this.validation.registrations.subscribe(registrations => {

@@ -18,13 +18,17 @@ export class AuthService {
   registration : Observable<Registration>;
 
   constructor(
-    private afAuth: AngularFireAuth, 
+    private afAuth: AngularFireAuth,
     private db: AngularFirestore,
     private router: Router) { }
 
   getUserState(){
     return this.afAuth.authState;
-  }    
+  }
+
+  isLoggedIn(): boolean{
+    return this.afAuth.authState !== null;
+  }
 
   checkUserEnabled(email: string, password: string){
 

@@ -21,10 +21,13 @@ import { ReservationsCancelComponent } from './reservations/reservations-cancel/
 import { VerzoekService } from './verzoek/verzoek.service';
 import { BeoordelingComponent } from './beoordeling/beoordeling.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MaterialModule} from './material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material';
 import { VerzoekComponent } from './verzoek/verzoek.component';
 import { MenuComponent } from './menu/menu.component';
+
+// authentication
+import { AuthGuard } from './core/auth.guard';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,7 @@ import { MenuComponent } from './menu/menu.component';
      BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},VerzoekService],
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},VerzoekService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
