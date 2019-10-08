@@ -23,6 +23,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { MyModalComponent } from './user/reservations/my-modal/my-modal.component';
 
+import { ScannenComponent } from './qrscan/scannen.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +33,8 @@ import { MyModalComponent } from './user/reservations/my-modal/my-modal.componen
     LoginComponent,
     HomeComponent,
     ReservationsComponent,
-    MyModalComponent
+    MyModalComponent,
+    ScannenComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,8 @@ import { MyModalComponent } from './user/reservations/my-modal/my-modal.componen
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ZXingScannerModule
   ],
   providers: [ReservationsService],
   bootstrap: [AppComponent],

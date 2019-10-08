@@ -4,6 +4,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { HomeComponent } from './home/home.component';
 import { ReservationsComponent } from './user/reservations/reservations.component';
+import { ScannenComponent } from './qrscan/scannen.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'user/reservations',
     component: ReservationsComponent
+  },
+  {
+    path: 'scan',
+    component: ScannenComponent
   },
   {
     path: '',
