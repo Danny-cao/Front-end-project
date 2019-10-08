@@ -24,6 +24,7 @@ import { AngularMaterialModule } from './angular-material.module';
 import { MyModalComponent } from './user/reservations/my-modal/my-modal.component';
 
 import { ScannenComponent } from './qrscan/scannen.component';
+import { ScannenService } from './scannen.service';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
@@ -47,7 +48,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     AngularMaterialModule,
     ZXingScannerModule
   ],
-  providers: [ReservationsService],
+  providers: [ReservationsService, ScannenService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [MyModalComponent]

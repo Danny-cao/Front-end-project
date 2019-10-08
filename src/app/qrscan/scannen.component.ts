@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 
+import { ScannenService } from '../scannen.service';
+
 @Component({
   selector: 'app-scannen',
   templateUrl: './scannen.component.html',
@@ -8,6 +10,10 @@ import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 })
 
 export class ScannenComponent {
+
+    constructor(private scannenService: ScannenService) {
+
+    }
 
     @ViewChild('scanner', {static: false})
     scanner: ZXingScannerComponent;
@@ -18,6 +24,12 @@ export class ScannenComponent {
 
         this.qrcodeText = $event;
         console.log("Gescande QR-Code: ", this.qrcodeText);
+
+        if ((this.scannenService.checkQRCode(this.qrcodeText)) == true){
+          //scherm groen
+        } else {
+          //scherm rood
+        }
 
     }
 
