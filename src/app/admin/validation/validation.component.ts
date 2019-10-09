@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class ValidationComponent implements OnInit {
   registrations: Registration[];
   user: firebase.User;
+  registrationValidation: Registration;
 
   constructor(private validation: ValidationService, private auth: AuthService, private router: Router) { }
 
@@ -19,6 +20,12 @@ export class ValidationComponent implements OnInit {
 
     this.auth.getUserState().subscribe( user => {
       this.user = user;
+      if(user == null){
+        this.router.navigate(['login']);
+      }
+      if(user != null){
+        this.auth.accessOnlyAdmin(user.email);
+      }
     });
 
     this.validation.registrations.subscribe(registrations => {
@@ -34,5 +41,4 @@ export class ValidationComponent implements OnInit {
   declineRegistration(email: string) {
     this.validation.declineRegistration(email);
   }
-
 }

@@ -99,5 +99,22 @@ export class AuthService {
     return this.registration;
   }
 
+  // change role naming later.
+  accessOnlyAdmin(email){
+    this.db.collection("Users").doc(email).valueChanges().subscribe(val => {
+      if(val['role'] != 'beheerder'){
+        this.router.navigate(['home'])
+      }
+    });
+  }
+
+  // change role naming later.
+  accessOnlyUser(email){
+    this.db.collection("Users").doc(email).valueChanges().subscribe(val => {
+      if(val['role'] != 'student'){
+        this.router.navigate(['home'])
+      }
+    });
+  }
 
 }
