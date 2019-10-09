@@ -23,6 +23,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { MyModalComponent } from './user/reservations/my-modal/my-modal.component';
 
+import { ScannenComponent } from './qrscan/scannen.component';
+import { ScannenService } from './scannen.service';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +35,8 @@ import { MyModalComponent } from './user/reservations/my-modal/my-modal.componen
     LoginComponent,
     HomeComponent,
     ReservationsComponent,
-    MyModalComponent
+    MyModalComponent,
+    ScannenComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +46,11 @@ import { MyModalComponent } from './user/reservations/my-modal/my-modal.componen
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ZXingScannerModule,
+    QRCodeModule
   ],
-  providers: [ReservationsService],
+  providers: [ReservationsService, ScannenService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [MyModalComponent]

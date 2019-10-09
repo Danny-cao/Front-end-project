@@ -1,0 +1,17 @@
+.scanner {
+    width: 1000px;
+    height: 1000px;
+    margin: 0px auto; 
+}
+
+.default {
+    background-color: white;
+}
+
+.greenClass {
+    background-color: green;
+}
+
+.redClass {
+    background-color: red;
+}
