@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {BeoordelingService} from './beoordeling.service';
 import { Verzoek } from '../verzoek/verzoek.model';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,14 +17,26 @@ export class BeoordelingComponent implements OnInit {
   filterVerzoeken:Verzoek[];
   editState: boolean = false;
   AfkeurEdit:Verzoek;
+  user: firebase.User;
  
 
  
-  constructor(private beoordelingService:BeoordelingService) { }
+  constructor(private beoordelingService:BeoordelingService, private auth: AuthService, private router: Router) { }
  
  
 
   ngOnInit() {
+
+    this.auth.getUserState().subscribe( user => {
+      this.user = user;
+      if(user == null){
+        this.router.navigate(['login']);
+      }
+      if(user != null){
+        this.auth.accessOnlyAdmin(user.email);
+      }
+    });
+
 
     this.beoordelingService.getVerzoeken().subscribe(verzoeken =>{
       this.verzoeken = verzoeken;

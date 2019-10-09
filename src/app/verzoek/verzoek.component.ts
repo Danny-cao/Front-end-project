@@ -4,7 +4,8 @@ import {VerzoekService} from  './verzoek.service';
 import {Verzoek} from './verzoek.model';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 
 
@@ -19,9 +20,9 @@ import * as moment from 'moment';
 
 export class VerzoekComponent{ //oninit implementeren {
   
+  user: firebase.User;
 
-
-minDate = new Date();
+  minDate = new Date();
 
 
  @Output() 
@@ -50,8 +51,18 @@ verzoeken:Verzoek[];
 filterVerzoeken:Verzoek[];
 
 
-constructor(private VerzoekService:VerzoekService){}
-ngOnInit() {}
+constructor(private VerzoekService:VerzoekService, private auth: AuthService, private router: Router){}
+ngOnInit() {
+  this.auth.getUserState().subscribe( user => {
+    this.user = user;
+    if(user == null){
+      this.router.navigate(['login']);
+    }
+    if(user != null){
+      this.auth.accessOnlyUser(user.email);
+    }
+  });
+}
 
 
 someMethodName(date:any) { 

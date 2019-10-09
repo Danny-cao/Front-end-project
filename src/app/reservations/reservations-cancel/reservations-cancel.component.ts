@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReservationsService } from '../reservations.service';
 import { Reservation } from '../reservationModel/Reservation';
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservations-cancel',
@@ -14,12 +15,17 @@ export class ReservationsCancelComponent implements OnInit {
   mijnReservations: Reservation[] = [];
   bericht: string;
 
-  constructor(private reservationsService: ReservationsService, private auth: AuthService) {}
+  constructor(private reservationsService: ReservationsService, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.auth.getUserState().subscribe( user => {
       this.user = user;
-      
+      if(user == null){
+        this.router.navigate(['login']);
+      }
+      if(user != null){
+        this.auth.accessOnlyUser(user.email);
+      }
     });
 
     this.reservationsService.reservations.subscribe(reservations => {
