@@ -15,8 +15,9 @@ import { MyModalComponent } from './my-modal/my-modal.component';
 export class ReservationsComponent implements OnInit {
 
   resStatus: string;
-  resStatusBool: Boolean;
+  resStatusBool: boolean = false;
   resComment: string;
+  resQR: string;
   reservations: Reservation[];
   reservationStatus: Reservation[];
 
@@ -30,28 +31,16 @@ export class ReservationsComponent implements OnInit {
       //console.log(this.reservations);
     });
 
-    this.reservationsService.getReservationQR().subscribe(result => {
-      this.reservationStatus = result;
-      //console.log(this.reservationStatus);
-    });
-
   }
 
   openDialog(el): void {
     this.resStatus = el.getAttribute('status');
     this.resComment = el.getAttribute('comment');
-
-    if (this.resStatus == "Accepted") {
-        this.resStatusBool = true;
-    }
-
-    if (this.resStatus == "Rejected") {
-        this.resStatusBool = false;
-    }
+    this.resQR = el.getAttribute('qrcode');
 
     const dialogRef = this.dialog.open(MyModalComponent, {
       width: '500px',
-      data: { resStatus: this.resStatusBool, resComment: this.resComment }
+      data: { resStatus: this.resStatus, resComment: this.resComment, resQR: this.resQR }
     });
   }
    

@@ -42,7 +42,7 @@
 
     <tbody>
 
-        <tr #statusButton *ngFor="let reservation of reservations" attr.status="{{reservation.status}}" attr.comment="{{reservation.teacherComment}}">
+        <tr #statusButton *ngFor="let reservation of reservations" attr.qrcode="{{reservation.qrcode}}" attr.status="{{reservation.status}}" attr.comment="{{reservation.teacherComment}}">
 
             <td>
 
@@ -68,10 +68,28 @@
 
             </td>
 
-            <td>
+            <td *ngIf="reservation.status == 'Inbehandeling'">
+
+                {{reservation.status}}
+    
+            </td>
+
+            <td *ngIf="reservation.status == 'Accepted'">
 
                 <button mat-raised-button (click)="openDialog(statusButton)" > {{reservation.status}} </button>
 
+            </td>
+
+            <td *ngIf="reservation.status == 'Rejected'">
+
+                <button mat-raised-button (click)="openDialog(statusButton)" > {{reservation.status}} </button>
+        
+            </td>
+
+            <td *ngIf="reservation.status == 'Geannuleerd'">
+
+                {{reservation.status}}
+        
             </td>
 
         </tr>

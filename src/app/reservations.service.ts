@@ -12,20 +12,13 @@ export class ReservationsService {
     reservationsCollection: AngularFirestoreCollection<Reservation>;
 
     reservations: Observable<Reservation[]>;
-    reservationStatus: Observable<Reservation[]>;
-    reservationBeoordeeld: Observable<Reservation>;
 
     constructor(public afs: AngularFirestore){
-        this.reservations = this.afs.collection('Reservations').valueChanges();
+        this.reservations = this.afs.collection('Reservations', ref => ref.orderBy('date')).valueChanges();
     }
     
     getReservations() {
         return this.reservations;
-    }
-
-    getReservationQR() {
-        //haal qr uit db
-        return this.reservationStatus = this.afs.collection('Reservations', ref => ref.where('status', '==', 'Rejected')).valueChanges();
     }
 
 }
