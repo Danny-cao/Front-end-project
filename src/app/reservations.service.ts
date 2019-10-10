@@ -18,7 +18,7 @@ export class ReservationsService {
     }
     
     getReservations(email: string) {
-        return this.reservations = this.afs.collection('Reservations', ref => ref.where('studentEmail', '==', email)).valueChanges();
+        return this.reservations = this.afs.collection('Reservations', ref => ref.where('emailStudent', '==', email)).valueChanges();
     }
 
 }
