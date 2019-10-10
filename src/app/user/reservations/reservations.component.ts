@@ -6,6 +6,8 @@ import { ReservationsService } from '../../reservations.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MyModalComponent } from './my-modal/my-modal.component';
 
+import { AuthService } from '../../auth/auth.service';
+
 @Component({
   selector: 'app-reservations',
   templateUrl: './reservations.component.html',
@@ -21,15 +23,24 @@ export class ReservationsComponent implements OnInit {
   reservations: Reservation[];
   reservationStatus: Reservation[];
 
-  constructor(private reservationsService: ReservationsService, public dialog: MatDialog) {
+  user: firebase.User;
+
+  constructor(private reservationsService: ReservationsService, public dialog: MatDialog, private auth: AuthService,) {
 
   }
 
   ngOnInit(){
-    this.reservationsService.getReservations().subscribe(reservations => {
-      this.reservations = reservations;
-      //console.log(this.reservations);
-    });
+
+    this.auth.getUserState().subscribe( user => {
+      this.user = user;
+      if(user != null){
+        this.reservationsService.getReservations(user.email).subscribe(reservations => {
+          this.reservations = reservations;
+        });
+
+      }
+
+    })
 
   }
 
