@@ -11,9 +11,9 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class ReservationsReviewedComponent implements OnInit {
   reservations: Reservation[];
-  reservationsReviewed: Reservation[];
+  reservationsAccepted: Reservation[];
+  reservationsRejected: Reservation[];
   user: firebase.User;
-
 
   constructor(private reservationsService: ReservationsService, private auth: AuthService, private router: Router) {}
 
@@ -33,8 +33,12 @@ export class ReservationsReviewedComponent implements OnInit {
       this.reservations = reservations;
     });
 
-    this.reservationsService.getReservationsReviewed().subscribe(reservations => {
-      this.reservationsReviewed = reservations;
+    this.reservationsService.getReservationsAccepted().subscribe(reservations => {
+      this.reservationsAccepted = reservations;
+    });
+
+    this.reservationsService.getReservationsRejected().subscribe(reservations => {
+      this.reservationsRejected = reservations;
     });
 
   }
