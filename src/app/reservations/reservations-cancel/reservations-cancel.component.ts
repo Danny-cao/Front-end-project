@@ -41,15 +41,17 @@ export class ReservationsCancelComponent implements OnInit {
       this.reservationsService.cancelReservation(id);
       this.bericht = 'Reservering Geannuleerd';
 
-      function delay(ms: number) {
-        return new Promise( resolve => setTimeout(resolve, ms) );
-      }
+    //   function delay(ms: number) {
+    //     return new Promise( resolve => setTimeout(resolve, ms) );
+    //   }
 
-      (async () => {
-        await delay(1000);
+    //   (async () => {
+    //     await delay(1000);
 
-        this.getMijnReservations();
-    })();
+    //     this.getMijnReservations();
+    // })();
+
+    this.getMijnReservations();
     } else {
       this.bericht = 'Reservering was al geannuleerd';
     }

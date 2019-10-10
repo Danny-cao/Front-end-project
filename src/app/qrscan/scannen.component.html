@@ -1,0 +1,16 @@
+<div [ngClass]="{greenClass: qrcodeValid == 'true', redClass: qrcodeValid == 'false', defaultClass: qrcodeValid == 'default'}">
+
+<h1> QR-Code scannen </h1>
+<h5> Scan hier uw qr-code om voor het lokaal in te checken </h5>
+
+<br>
+
+<p *ngIf="qrcodeValid == 'true'"> Resultaat: De gescande QR-code is goedgekeurd </p>
+<p *ngIf="qrcodeValid == 'false'"> Resultaat: De gescande QR-code is afgekeurd </p>
+
+<zxing-scanner 
+    class = "scanner"
+    (scanSuccess)="scanSuccessHandler($event)" 
+></zxing-scanner>
+
+</div>

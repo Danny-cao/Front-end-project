@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Status reservering</h1>
+
+<div *ngIf="data.resStatus == 'Accepted'"> 
+  <p> De reservering is goedgekeurd, hier is uw qr-code. </p> 
+  <p> 
+    <qrcode [qrdata]="data.resQR" [size]="256" [level]="'M'"></qrcode>
+  </p> 
+</div>
+
+<div *ngIf="data.resStatus == 'Rejected'"> 
+  <p> De reservering is afgekeurd, hier is de reden waarom. </p> 
+  <p>
+    <b> Reden: {{data.resComment}} </b>
+  </p>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.color" cdkFocusInitial>Ok</button>
+</div>

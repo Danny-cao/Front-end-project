@@ -9,6 +9,8 @@ import { BeoordelingComponent } from './beoordeling/beoordeling.component';
 import { ReservationsCancelComponent } from './reservations/reservations-cancel/reservations-cancel.component';
 import { ReservationsReviewedComponent } from './reservations/reservations-reviewed/reservations-reviewed.component';
 import { AuthGuard } from './core/auth.guard';
+import { ReservationsComponent } from './user/reservations/reservations.component';
+import { ScannenComponent } from './qrscan/scannen.component';
 
 
 const routes: Routes = [
@@ -48,6 +50,14 @@ const routes: Routes = [
     path: 'reservationReview',
     component: ReservationsReviewedComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'user/reservations',
+    component: ReservationsComponent
+  },
+  {
+    path: 'scan',
+    component: ScannenComponent
   },
   {
     path: '',

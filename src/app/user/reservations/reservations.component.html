@@ -1,0 +1,99 @@
+<h2>Reserveringen bekijken</h2>
+
+<table class = "center" > 
+
+    <thead>
+
+        <tr>
+
+            <th>
+
+                datum
+
+            </th>
+
+            <th>
+
+                begintijd
+
+            </th>
+
+            <th>
+
+                eindtijd
+
+            </th>
+
+            <th>
+
+                beschrijving
+
+            </th>
+
+            <th>
+                
+                status
+
+            </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        <tr #statusButton *ngFor="let reservation of reservations" attr.qrcode="{{reservation.qrcode}}" attr.status="{{reservation.status}}" attr.comment="{{reservation.teacherComment}}">
+
+            <td>
+
+                {{reservation.date}}
+
+            </td>
+
+            <td>
+
+                {{reservation.startTime}}
+
+            </td>
+
+            <td>
+
+                {{reservation.endTime}}
+
+            </td>
+
+            <td>
+
+                {{reservation.description}}
+
+            </td>
+
+            <td *ngIf="reservation.status == 'Inbehandeling'">
+
+                {{reservation.status}}
+    
+            </td>
+
+            <td *ngIf="reservation.status == 'Accepted'">
+
+                <button mat-raised-button (click)="openDialog(statusButton)" > {{reservation.status}} </button>
+
+            </td>
+
+            <td *ngIf="reservation.status == 'Rejected'">
+
+                <button mat-raised-button (click)="openDialog(statusButton)" > {{reservation.status}} </button>
+        
+            </td>
+
+            <td *ngIf="reservation.status == 'Geannuleerd'">
+
+                {{reservation.status}}
+        
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
