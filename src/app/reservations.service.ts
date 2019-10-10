@@ -14,11 +14,11 @@ export class ReservationsService {
     reservations: Observable<Reservation[]>;
 
     constructor(public afs: AngularFirestore){
-        this.reservations = this.afs.collection('Reservations', ref => ref.orderBy('date')).valueChanges();
+        
     }
     
-    getReservations() {
-        return this.reservations;
+    getReservations(email: string) {
+        return this.reservations = this.afs.collection('Reservations', ref => ref.where('studentEmail', '==', email)).valueChanges();
     }
 
 }

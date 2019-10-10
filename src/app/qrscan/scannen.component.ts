@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { formatDate, DatePipe } from '@angular/common';
+import { formatDate } from '@angular/common';
 
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 
@@ -44,12 +44,10 @@ export class ScannenComponent {
 
               if (this.reservations[0].date == this.curDate) {
                 
-                // date parse gaat fout
-                this.resDatetimeStart = Date.parse(this.curDate + " " + this.reservations[0].startTime);
-              
-                this.resDatetimeEnd = Date.parse(this.curDate + " " + this.reservations[0].endTime);
+                this.resDatetimeStart = Date.parse(this.curDate + "T" + this.reservations[0].startTime);
+                this.resDatetimeEnd = Date.parse(this.curDate + "T" + this.reservations[0].endTime);
 
-                this.curDatetime = Date.parse(this.curDate + " " + this.curTime);
+                this.curDatetime = Date.parse(this.curDate + "T" + this.curTime);
 
                 if ((this.resDatetimeStart - 5000) <= this.curDatetime && this.resDatetimeEnd >= this.curDatetime) {
 
