@@ -21,11 +21,13 @@ export class RegistrationComponent implements OnInit {
   createUser(frm) {
 
 
-    // email eindigen op @hu.nl
     // firstname en lastname moet ingevuld worden
-    
-    console.log(frm.value['email']);
 
-    this.auth.createUser(frm.value);
+    console.log(frm.value['email']);
+    if(frm.value['email'].endsWith("@hu.nl") && frm.value['firstName'].length > 0 && frm.value['lastName'].length > 0){
+      this.auth.createUser(frm.value);
+    }else {
+      this.auth.basicErrorRegistration();
+    }
   }
 }

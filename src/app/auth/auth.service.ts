@@ -58,7 +58,6 @@ export class AuthService {
 
   login(email: string, password: string){
 
-    // controleer eerst of gebruiker is bevestigd door beheerder.
     this.afAuth.auth.signInWithEmailAndPassword(email, password).catch(error => {
       console.log(error);
       this.eventAuthError.next(error)
@@ -123,6 +122,11 @@ export class AuthService {
         this.router.navigate(['home'])
       }
     });
+  }
+
+  basicErrorRegistration(){
+    var error = JSON.parse('{"message": "Email moet eindigen met @hu.nl, voornaam en achternaam moet ingevuld worden"}');
+    this.eventAuthError.next(error);
   }
 
 }
