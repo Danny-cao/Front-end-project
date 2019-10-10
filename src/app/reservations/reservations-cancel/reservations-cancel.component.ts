@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReservationsService } from '../reservations.service';
 import { Reservation } from '../reservationModel/Reservation';
 import { AuthService } from '../../auth/auth.service';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-reservations-cancel',
@@ -29,18 +30,33 @@ export class ReservationsCancelComponent implements OnInit {
   }
 
   cancelReservation(id: string, status: string) {
-    if (status !== 'geannuleerd') {
+    if (status !== 'Geannuleerd') {
       this.reservationsService.cancelReservation(id);
       this.bericht = 'Reservering Geannuleerd';
+
+      function delay(ms: number) {
+        return new Promise( resolve => setTimeout(resolve, ms) );
+      }
+
+      (async () => {
+        await delay(1000);
+
+        this.getMijnReservations();
+    })();
     } else {
       this.bericht = 'Reservering was al geannuleerd';
     }
 
   }
 
+
+
   getMijnReservations() {
     for (const reservation of this.reservations) {
-      if (reservation.email === this.user.email) {
+      if (this.mijnReservations.length > 0) {
+        this.mijnReservations = [];
+      }
+      if (reservation.emailStudent === this.user.email) {
         this.mijnReservations.push(reservation);
       }
     }

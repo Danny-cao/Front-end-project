@@ -9,25 +9,31 @@ import { Observable } from 'rxjs';
 export class ReservationsService {
   reservationsCollection: AngularFirestoreCollection<Reservation>;
   reservations: Observable<Reservation[]>;
-  reservationsReviewed: Observable<Reservation[]>;
+  reservationsAccepted: Observable<Reservation[]>;
   reservationsCancel: Observable<Reservation[]>;
+  reservationsRejected: Observable<Reservation[]>;
 
   constructor(public afs: AngularFirestore) {
     this.reservations = this.afs.collection('Reservations').valueChanges();
-    this.reservationsReviewed = this.afs.collection('Reservations', ref => ref.where('beoordeeld', '==', true)).valueChanges();
+    this.reservationsAccepted = this.afs.collection('Reservations', ref => ref.where('status', '==', 'Accepted' )).valueChanges();
+    this.reservationsRejected = this.afs.collection('Reservations', ref => ref.where('status', '==', 'Rejected' )).valueChanges();
   }
 
   getReservations() {
     return this.reservations;
   }
 
-  getReservationsReviewed() {
-    return this.reservationsReviewed;
+  getReservationsAccepted() {
+    return this.reservationsAccepted;
+  }
+
+  getReservationsRejected() {
+    return this.reservationsRejected;
   }
 
   cancelReservation(id: string) {
     this.afs.collection('Reservations').doc(id).update({
-      status: 'geannuleerd'
+      status: 'Geannuleerd'
     });
   }
 

@@ -9,7 +9,8 @@ import { Reservation } from '../reservationModel/Reservation';
 })
 export class ReservationsReviewedComponent implements OnInit {
   reservations: Reservation[];
-  reservationsReviewed: Reservation[];
+  reservationsAccepted: Reservation[];
+  reservationsRejected: Reservation[];
 
 
   constructor(private reservationsService: ReservationsService) {
@@ -20,8 +21,12 @@ export class ReservationsReviewedComponent implements OnInit {
       this.reservations = reservations;
     });
 
-    this.reservationsService.getReservationsReviewed().subscribe(reservations => {
-      this.reservationsReviewed = reservations;
+    this.reservationsService.getReservationsAccepted().subscribe(reservations => {
+      this.reservationsAccepted = reservations;
+    });
+
+    this.reservationsService.getReservationsRejected().subscribe(reservations => {
+      this.reservationsRejected = reservations;
     });
 
   }

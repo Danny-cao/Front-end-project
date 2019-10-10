@@ -1,9 +1,11 @@
 export interface Reservation {
     ID?: string;
-    endtime?: string;
-    starttime?: string;
+    endTime?: number;
+    startTime?: number;
     date?: string;
     description?: string;
-    email?: string;
+    emailStudent?: string;
     status?: string;
+    requestDate?: string;
 }
+
