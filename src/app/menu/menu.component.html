@@ -12,16 +12,16 @@
           <a class="nav-link" href="user/reservations">Reserveringen</a>
         </li>
         <li class="nav-item" *ngIf="user && registration?.role == 'student'">
-            <a class="nav-link" href="verzoek">Reserveren</a>
+            <a class="nav-link" href="verzoek">Verzoek indienen</a>
         </li>
         <li class="nav-item" *ngIf="user && registration?.role == 'beheerder'">
-            <a class="nav-link" href="beoordeling">Reserveringen beheren</a>
+            <a class="nav-link" href="beoordeling">Openstaande verzoeken beoordelen</a>
         </li>
         <li class="nav-item" *ngIf="user && registration?.role == 'student'">
-            <a class="nav-link" href="reservationCancel">Reserveringen beheren</a>
+            <a class="nav-link" href="reservationCancel">Reservering annuleren</a>
         </li>
         <li class="nav-item" *ngIf="user && registration?.role == 'beheerder'">
-            <a class="nav-link" href="reservationReview">Reserverings overzicht</a>
+            <a class="nav-link" href="reservationReview">Beoordeelde reserveringen</a>
         </li>
         <li class="nav-item">
             <button class="btn btn-primary mr-2" *ngIf="!user" (click)="register()">Registreren</button>
