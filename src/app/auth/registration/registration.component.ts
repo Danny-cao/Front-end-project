@@ -19,6 +19,13 @@ export class RegistrationComponent implements OnInit {
   }
 
   createUser(frm) {
+
+
+    // email eindigen op @hu.nl
+    // firstname en lastname moet ingevuld worden
+    
+    console.log(frm.value['email']);
+
     this.auth.createUser(frm.value);
   }
 }

@@ -29,7 +29,7 @@ export class ValidationService {
   }
 
   declineRegistration(email: string) {
-    this.db.collection('Reservations').doc(email).update({
+    this.db.collection('Users').doc(email).update({
       status: 'declined'
     });
   }

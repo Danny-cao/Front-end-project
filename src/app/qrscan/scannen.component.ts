@@ -37,14 +37,16 @@ export class ScannenComponent {
         this.qrcodeText = $event;
 
         this.scannenService.checkQRCode(this.qrcodeText).subscribe(reservations => {
-
+            
             this.reservations = reservations;
-
+            console.log(reservations);
             if (this.reservations[0] != null) {
 
               if (this.reservations[0].date == this.curDate) {
                 
+                // date parse gaat fout
                 this.resDatetimeStart = Date.parse(this.curDate + " " + this.reservations[0].startTime);
+              
                 this.resDatetimeEnd = Date.parse(this.curDate + " " + this.reservations[0].endTime);
 
                 this.curDatetime = Date.parse(this.curDate + " " + this.curTime);

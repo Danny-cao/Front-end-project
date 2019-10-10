@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginComponent } from './login/login.component';
@@ -34,7 +33,14 @@ export class AuthService {
   checkUserEnabled(email: string, password: string){
 
     // Als gebruikers status op "true" staat dan login anders terug sturen naar homepagina.
+
     this.db.collection("Users").doc(email).valueChanges().subscribe(val => {
+
+      if(val == undefined){
+        var error = JSON.parse('{"message": "Je hebt nog geen account"}');
+        this.eventAuthError.next(error);
+      }
+
       console.log(val['status']);
       if(val['status'] == 'activated'){
         this.login(email, password);

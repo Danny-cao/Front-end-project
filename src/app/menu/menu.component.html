@@ -9,13 +9,16 @@
           <a class="nav-link" href="validation">Registraties</a>
         </li>
         <li class="nav-item" *ngIf="user && registration?.role == 'student'">
+          <a class="nav-link" href="user/reservations">Reserveringen</a>
+        </li>
+        <li class="nav-item" *ngIf="user && registration?.role == 'student'">
             <a class="nav-link" href="verzoek">Reserveren</a>
         </li>
         <li class="nav-item" *ngIf="user && registration?.role == 'beheerder'">
             <a class="nav-link" href="beoordeling">Reserveringen beheren</a>
         </li>
         <li class="nav-item" *ngIf="user && registration?.role == 'student'">
-            <a class="nav-link" href="reservationCancel">Reserveringen</a>
+            <a class="nav-link" href="reservationCancel">Reserveringen beheren</a>
         </li>
         <li class="nav-item" *ngIf="user && registration?.role == 'beheerder'">
             <a class="nav-link" href="reservationReview">Reserverings overzicht</a>
