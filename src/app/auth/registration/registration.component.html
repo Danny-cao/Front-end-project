@@ -12,11 +12,11 @@
       <form #userRegForm="ngForm" (ngSubmit)="createUser(userRegForm)">
         <div class="row">
           <div class="col-md-6 mb-2">
-            <label for="firstName">First name</label>
+            <label for="firstName">Voornaam</label>
             <input ngModel #firstname="ngModel" name="firstName" type="text" class="form-control" id="firstName">
           </div>
           <div class="col-md-6 mb-2">
-            <label for="lastName">Last name</label>
+            <label for="lastName">Achternaam</label>
             <input ngModel #lastname="ngModel" name="lastName" type="text" class="form-control" id="lastName" value="">
           </div>
         </div>
@@ -29,13 +29,13 @@
         <div>
           <div class="row">
             <div class="col-md-12 mb-2">
-              <label for="password">Password</label>
+              <label for="password">Wachtwoord</label>
               <input ngModel #password="ngModel" name="password" type="password" class="form-control">
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button class="btn btn-primary" type="submit">Submit</button>
+              <button class="btn btn-primary" type="submit">Bevestigen</button>
             </div>
           </div>
         </div>
