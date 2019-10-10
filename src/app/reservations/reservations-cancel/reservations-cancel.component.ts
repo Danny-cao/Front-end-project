@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReservationsService } from '../reservations.service';
 import { Reservation } from '../reservationModel/Reservation';
 import { AuthService } from '../../auth/auth.service';
-import { async } from '@angular/core/testing';
+
 
 @Component({
   selector: 'app-reservations-cancel',
@@ -20,13 +20,12 @@ export class ReservationsCancelComponent implements OnInit {
   ngOnInit() {
     this.auth.getUserState().subscribe( user => {
       this.user = user;
-      
     });
 
     this.reservationsService.reservations.subscribe(reservations => {
       this.reservations = reservations;
       this.getMijnReservations();
-    })
+    });
   }
 
   cancelReservation(id: string, status: string) {
