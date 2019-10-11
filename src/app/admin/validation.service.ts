@@ -33,5 +33,4 @@ export class ValidationService {
       status: 'declined'
     });
   }
-
 }

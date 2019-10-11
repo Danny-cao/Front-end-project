@@ -13,6 +13,7 @@ export class ValidationComponent implements OnInit {
   registrations: Registration[];
   user: firebase.User;
   registrationValidation: Registration;
+  message : String;
 
   constructor(private validation: ValidationService, private auth: AuthService, private router: Router) { }
 
@@ -36,9 +37,11 @@ export class ValidationComponent implements OnInit {
 
   acceptRegistration(email: string) {
     this.validation.acceptRegistration(email);
+    return this.message = "Gebruiker Goedgekeurd";
   }
 
   declineRegistration(email: string) {
     this.validation.declineRegistration(email);
+    return this.message = "Gebruiker Afgekeurd";
   }
 }
