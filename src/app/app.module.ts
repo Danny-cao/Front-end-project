@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +29,18 @@ import { MenuComponent } from './menu/menu.component';
 // authentication
 import { AuthGuard } from './core/auth.guard';
 
+import { ReservationsComponent } from './user/reservations/reservations.component';
+import { ReservationsService } from './reservations.service';
+
+import { AngularMaterialModule } from './angular-material.module';
+import { MyModalComponent } from './user/reservations/my-modal/my-modal.component';
+
+import { ScannenComponent } from './qrscan/scannen.component';
+import { ScannenService } from './scannen.service';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { QRCodeModule } from 'angularx-qrcode';
+import {ToastrModule} from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +52,10 @@ import { AuthGuard } from './core/auth.guard';
     BeoordelingComponent,
     ReservationsReviewedComponent,
     ReservationsCancelComponent,
-    MenuComponent
+    MenuComponent,
+    ReservationsComponent,
+    MyModalComponent,
+    ScannenComponent
   ],
   imports: [
     BrowserModule,
@@ -49,11 +64,16 @@ import { AuthGuard } from './core/auth.guard';
     AngularFireModule.initializeApp( environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-     BrowserModule,
-     BrowserAnimationsModule,
+    BrowserAnimationsModule,
     MaterialModule,
+    AngularMaterialModule,
+    ZXingScannerModule,
+    QRCodeModule,
+    ToastrModule.forRoot()
   ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},VerzoekService, AuthGuard],
-  bootstrap: [AppComponent]
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},VerzoekService, AuthGuard, ReservationsService, ScannenService],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [MyModalComponent]
 })
 export class AppModule { }

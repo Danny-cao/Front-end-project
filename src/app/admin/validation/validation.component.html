@@ -1,6 +1,14 @@
-<h4>Registraties beheren</h4>
 <app-menu></app-menu>
-
+<h4>Registraties beheren</h4>
+<div *ngIf="message?.length > 0;else noMessage">
+    <div class="alert alert-info" role="alert">
+        <b>{{ message }}</b>
+    </div>
+  </div>
+  
+  <ng-template #noMessage>
+      <hr>
+  </ng-template>
 <div *ngIf="registrations?.length > 0;else noRegistrations">
 
     <table class="table">
@@ -18,8 +26,8 @@
                     <td>{{ registration.email }}</td>
                     <td>{{ registration.firstname }}</td>
                     <td>{{ registration.lastname }}</td>
-                    <td><button type ="button" class="btn-success" (click)="acceptRegistration(registration.email)" data-toggle="modal" data-target="#acceptModal">Accepteren</button></td>
-                    <td><button class="btn-danger" (click)="declineRegistration(registration.email)" data-toggle="modal" data-target="#declineModal">Weigeren</button></td>
+                    <td><button type ="button" class="btn-success" (click)="acceptRegistration(registration.email)">Accepteren</button></td>
+                    <td><button class="btn-danger" (click)="declineRegistration(registration.email)">Weigeren</button></td>
             </tr>
         </tbody>
     </table>
@@ -30,39 +38,3 @@
     <hr>
     <h5>Er zijn momenteel geen nieuwe registraties.</h5>
 </ng-template>
-
-<!-- Pop-up, bevestiging voor registratie geacceptateerd -->
-<div class="modal fade" id="acceptModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Registratie geaccepteerd</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-        </div>
-      </div>
-    </div>
-</div>
-
-<!-- Pop-up, bevestiging voor registratie geweigerd -->
-<div class="modal fade" id="declineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Registratie afgewezen</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-        </div>
-      </div>
-    </div>
-</div>

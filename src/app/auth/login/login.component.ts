@@ -8,10 +8,12 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  // auth error variable not assigning specific type
   authError: any;
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
+    // Show authentication errors if there are any.
     this.auth.eventAuthError$.subscribe( data => {
       this.authError = data;
     });

@@ -12,6 +12,7 @@ export class RegistrationComponent implements OnInit {
   
   constructor(private auth: AuthService) { }
 
+  // Show authentication errors if there are any.
   ngOnInit() {
     this.auth.eventAuthError$.subscribe(data => {
       this.authError = data;
@@ -19,6 +20,15 @@ export class RegistrationComponent implements OnInit {
   }
 
   createUser(frm) {
-    this.auth.createUser(frm.value);
+
+
+    // firstname and lastname need to be filled in
+
+    console.log(frm.value['email']);
+    if(frm.value['email'].endsWith("@hu.nl") && frm.value['firstName'].length > 0 && frm.value['lastName'].length > 0){
+      this.auth.createUser(frm.value);
+    }else {
+      this.auth.basicErrorRegistration();
+    }
   }
 }

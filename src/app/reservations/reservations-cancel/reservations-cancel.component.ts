@@ -4,6 +4,7 @@ import { Reservation } from '../reservationModel/Reservation';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-reservations-cancel',
   templateUrl: './reservations-cancel.component.html',
@@ -45,21 +46,17 @@ export class ReservationsCancelComponent implements OnInit {
     } else {
       this.bericht = 'Reservering was al geannuleerd';
     }
-
   }
 
   // get the reservations of the person who is loggen in
-  getMijnReservations() {
-    while (this.mijnReservations.length > 0) {
-    this.mijnReservations.pop();
-    }
-    for (const reservation of this.reservations) {
-      if (reservation.emailStudent === this.user.email) {
-        this.mijnReservations.push(reservation);
-      }
+getMijnReservations() {
+  while (this.mijnReservations.length > 0) {
+  this.mijnReservations.pop();
+  }
+  for (const reservation of this.reservations) {
+    if (reservation.emailStudent === this.user.email) {
+      this.mijnReservations.push(reservation);
     }
   }
-
-
-
+}
 }

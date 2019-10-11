@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection,AngularFirestoreDocument} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Verzoek } from '../verzoek/verzoek.model';
+import { Request } from '../verzoek/verzoek.model';
+import {VerzoekService} from '../verzoek/verzoek.service';
 
 
 @Injectable({
@@ -11,42 +12,62 @@ import { Verzoek } from '../verzoek/verzoek.model';
 
 export class BeoordelingService {
 
-  Inbehandeling: AngularFirestoreCollection<Verzoek>;
-  verzoeken: Observable<Verzoek[]>;
-  verzoekDoc: AngularFirestoreDocument<Verzoek>;
+  status_Inbehandeling:AngularFirestoreCollection<Request>;
+  Requests:Observable<Request[]>;
+  requestDoc:AngularFirestoreDocument<Request>;
+
+  currentdate = new Date();
+  
+  
+  
 
 
-  constructor(public afs: AngularFirestore) {
-    this.Inbehandeling = afs.collection<Verzoek>('Reservations', ref => ref.orderBy('Datum','desc'));
-    this.verzoeken = this.Inbehandeling.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Verzoek;
+  constructor(private afs:AngularFirestore,private verzoekService:VerzoekService){
+   
+    
+    this.status_Inbehandeling =
+     afs.collection<Request>('Reservations', ref => ref.where('date', '>=',this.verzoekService.format(this.currentdate)));
+    this.Requests = this.status_Inbehandeling.snapshotChanges().pipe(
+      map(actions => actions.map(a =>{
+        const data = a.payload.doc.data() as Request;
         const id = a.payload.doc.id;
-        return {id, ...data};
+      
+        return {id, ...data}
       }))
     );
   }
 
-  getVerzoeken(){
-    return this.verzoeken;
+  
+  
+  // get requests
+  getRequests(){
+    return this.Requests;
   }
 
-  Goedkeuren(verzoek:Verzoek){
-    this.verzoekDoc = this.afs.doc(`Reservations/${verzoek.id}`);
-    this.verzoekDoc.update({
-      Status: 'Goedgekeurd'
+
+
+  // request gets the status accepted
+  acceptRequest(request:Request){
+    this.requestDoc = this.afs.doc(`Reservations/${request.id}`);
+    this.requestDoc.update({
+      status: 'Accepted'
     })
 
   }
 
-  UpdateA(verzoek:Verzoek){
-    this.verzoekDoc = this.afs.doc(`Reservations/${verzoek.id}`);
-    this.verzoekDoc.update({
-      Status: 'Afgekeurd',
-      comment: verzoek.comment
+  // request is not accepted and request gets the status rejected
+  rejectRequest(request:Request){
+    this.requestDoc = this.afs.doc(`Reservations/${request.id}`);
+    this.requestDoc.update({
+      status: 'Rejected',
+      teacherComment: request.teacherComment
+      
     })
   }
+
+
 
 
 
 }
+

@@ -15,7 +15,6 @@ export class ReservationsReviewedComponent implements OnInit {
   reservationsRejected: Reservation[];
   user: firebase.User;
 
-
   constructor(private reservationsService: ReservationsService, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
