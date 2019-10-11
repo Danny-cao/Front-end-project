@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {BeoordelingService} from './beoordeling.service';
-import { Verzoek } from '../verzoek/verzoek.model';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { Request } from '../verzoek/verzoek.model';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 
@@ -12,25 +13,24 @@ import {MatExpansionModule} from '@angular/material/expansion';
 })
 export class BeoordelingComponent implements OnInit {
 
-  verzoeken:Verzoek[];
-  filterVerzoeken:Verzoek[];
+  requests:Request[];
+  filterVerzoeken:Request[];
   editState: boolean = false;
-  AfkeurEdit:Verzoek;
+  RejectEdit:Request;
  
 
  
-  constructor(private beoordelingService:BeoordelingService) { }
- 
- 
+  constructor(private beoordelingService:BeoordelingService,private toastr:ToastrService) { }
 
+
+ // get requests with status = inbehandeling
   ngOnInit() {
-
-    this.beoordelingService.getVerzoeken().subscribe(verzoeken =>{
-      this.verzoeken = verzoeken;
-      this.filterVerzoeken =  this.verzoeken.filter(function(verzoek) {
-     
-        return verzoek.Status == "Inbehandeling";
+     this.beoordelingService.getRequests().subscribe(verzoeken =>{
+      this.requests = verzoeken;
+      this.filterVerzoeken =  this.requests.filter(function(verzoek) {
+        return verzoek.status == "Inbehandeling";
       });   
+      
 
     });
    
@@ -42,25 +42,29 @@ export class BeoordelingComponent implements OnInit {
 
  
 
-  Goedkeuren(verzoek){
-    this.beoordelingService.Goedkeuren(verzoek);
+  Accept(request){
+    this.beoordelingService.acceptRequest(request);
+    this.toastr.success('succesvol status geupdate naar Accepted!');
   }
 
-  updateAfkeuren($event,verzoek){
-    this.beoordelingService.UpdateA(verzoek);
+  Reject($event,request){
+    this.beoordelingService.rejectRequest(request);
+    this.toastr.success('succesvol status geupdate naar Rejected!');
   }
 
-  Afkeuren($event,verzoek){
+
+  openCommensection($event,request){
     this.editState = true;
-    this.AfkeurEdit = verzoek;
+    this.RejectEdit = request;
 
   }
 
-  close(){
-    this.editState = false;
-  }
+
   
 
 }
+
+ 
+
 
  
