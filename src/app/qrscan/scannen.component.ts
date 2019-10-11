@@ -44,8 +44,8 @@ export class ScannenComponent {
 
               if (this.reservations[0].date == this.curDate) {
                 
-                this.resDatetimeStart = Date.parse(this.curDate + "T" + this.reservations[0].startTime);
-                this.resDatetimeEnd = Date.parse(this.curDate + "T" + this.reservations[0].endTime);
+                this.resDatetimeStart = Date.parse(this.curDate + "T" + this.reservations[0].startTime + ":00");
+                this.resDatetimeEnd = Date.parse(this.curDate + "T" + this.reservations[0].endTime + ":00");
 
                 this.curDatetime = Date.parse(this.curDate + "T" + this.curTime);
 
