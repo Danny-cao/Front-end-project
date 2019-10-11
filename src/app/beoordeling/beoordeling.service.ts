@@ -11,21 +11,20 @@ import { Verzoek } from '../verzoek/verzoek.model';
 
 export class BeoordelingService {
 
-  Inbehandeling:AngularFirestoreCollection<Verzoek>;
-  verzoeken:Observable<Verzoek[]>;
-  verzoekDoc:AngularFirestoreDocument<Verzoek>;
+  Inbehandeling: AngularFirestoreCollection<Verzoek>;
+  verzoeken: Observable<Verzoek[]>;
+  verzoekDoc: AngularFirestoreDocument<Verzoek>;
 
 
-  constructor(public afs:AngularFirestore){
+  constructor(public afs: AngularFirestore) {
     this.Inbehandeling = afs.collection<Verzoek>('Reservations', ref => ref.orderBy('Datum','desc'));
     this.verzoeken = this.Inbehandeling.snapshotChanges().pipe(
-      map(actions => actions.map(a =>{
+      map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Verzoek;
         const id = a.payload.doc.id;
-        return {id, ...data}
+        return {id, ...data};
       }))
-    ); 
-    
+    );
   }
 
   getVerzoeken(){

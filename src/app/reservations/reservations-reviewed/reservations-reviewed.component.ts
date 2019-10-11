@@ -11,30 +11,38 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class ReservationsReviewedComponent implements OnInit {
   reservations: Reservation[];
-  reservationsReviewed: Reservation[];
+  reservationsAccepted: Reservation[];
+  reservationsRejected: Reservation[];
   user: firebase.User;
 
 
   constructor(private reservationsService: ReservationsService, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
-
+    // save user and check if user is null is it is null then navigate it to the login page
     this.auth.getUserState().subscribe( user => {
       this.user = user;
-      if(user == null){
+      if (user == null) {
         this.router.navigate(['login']);
       }
-      if(user != null){
+      if (user != null) {
         this.auth.accessOnlyAdmin(user.email);
       }
     });
 
+    // get all reservations
     this.reservationsService.getReservations().subscribe(reservations => {
       this.reservations = reservations;
     });
 
-    this.reservationsService.getReservationsReviewed().subscribe(reservations => {
-      this.reservationsReviewed = reservations;
+    // get all accepted reservations
+    this.reservationsService.getReservationsAccepted().subscribe(reservations => {
+      this.reservationsAccepted = reservations;
+    });
+
+    // get all rejected reservations
+    this.reservationsService.getReservationsRejected().subscribe(reservations => {
+      this.reservationsRejected = reservations;
     });
 
   }

@@ -18,25 +18,29 @@ export class ReservationsCancelComponent implements OnInit {
   constructor(private reservationsService: ReservationsService, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
+    // save user and check if user is null is it is null then navigate it to the login page
     this.auth.getUserState().subscribe( user => {
       this.user = user;
-      if(user == null){
+      if (user == null) {
         this.router.navigate(['login']);
       }
-      if(user != null){
+      if (user != null) {
         this.auth.accessOnlyUser(user.email);
       }
     });
 
-    this.reservationsService.reservations.subscribe(reservations => {
+    // get all reservations and run get mijn reservations to get the reservations of the user
+    this.reservationsService.getReservations().subscribe(reservations => {
       this.reservations = reservations;
       this.getMijnReservations();
-    })
+    });
+
   }
 
-  cancelReservation(id: string, status: string) {
-    if (status !== 'geannuleerd') {
-      this.reservationsService.cancelReservation(id);
+  // method to set status of reservation to Geannuleerd
+  cancelReservation(reservation: Reservation, status: string) {
+    if (status !== 'Geannuleerd') {
+      this.reservationsService.cancelReservation(reservation);
       this.bericht = 'Reservering Geannuleerd';
     } else {
       this.bericht = 'Reservering was al geannuleerd';
@@ -44,9 +48,13 @@ export class ReservationsCancelComponent implements OnInit {
 
   }
 
+  // get the reservations of the person who is loggen in
   getMijnReservations() {
+    while (this.mijnReservations.length > 0) {
+    this.mijnReservations.pop();
+    }
     for (const reservation of this.reservations) {
-      if (reservation.email === this.user.email) {
+      if (reservation.emailStudent === this.user.email) {
         this.mijnReservations.push(reservation);
       }
     }

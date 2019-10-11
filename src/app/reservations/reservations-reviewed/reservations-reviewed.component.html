@@ -1,9 +1,8 @@
-<h4>Reserveringsoverzicht</h4>
 <app-menu></app-menu>
 
 <div *ngIf="reservations?.length > 0;else noReservations">
     
-
+    <h5>Geaccepteerde Reserveringen</h5>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
@@ -13,16 +12,44 @@
                 <th scope="col">Eind Tijd</th>
                 <th scope="col">Status</th>
                 <th scope="col">Beschrijving</th>
+                <th scope="col">Reden</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let reservation of reservationsReviewed">
-                <td>{{ reservation.email }}</td>
+            <tr *ngFor="let reservation of reservationsAccepted">
+                <td>{{ reservation.emailStudent }}</td>
                 <td>{{ reservation.date }}</td>
-                <td>{{ reservation.starttime }}</td>
-                <td>{{ reservation.endtime }}</td>
+                <td>{{ reservation.startTime }}</td>
+                <td>{{ reservation.endTime }}</td>
                 <td>{{ reservation.status }}</td>
                 <td>{{ reservation.description }}</td>
+                <td>{{ reservation.teacherComment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5>Afgekeurde Reserveringen</h5>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">E-Mail</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Start Tijd</th>
+                <th scope="col">Eind Tijd</th>
+                <th scope="col">Status</th>
+                <th scope="col">Beschrijving</th>
+                <th scope="col">Reden</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let reservation of reservationsRejected">
+                <td>{{ reservation.emailStudent }}</td>
+                <td>{{ reservation.date }}</td>
+                <td>{{ reservation.startTime }}</td>
+                <td>{{ reservation.endTime }}</td>
+                <td>{{ reservation.status }}</td>
+                <td>{{ reservation.description }}</td>
+                <td>{{ reservation.teacherComment }}</td>
             </tr>
         </tbody>
     </table>

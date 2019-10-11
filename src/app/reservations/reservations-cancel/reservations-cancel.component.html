@@ -16,13 +16,13 @@
       </thead>
       <tbody>
           <tr *ngFor="let reservation of mijnReservations">
-                  <td>{{ reservation.email }}</td>
+                  <td>{{ reservation.emailStudent }}</td>
                   <td>{{ reservation.date }}</td>
-                  <td>{{ reservation.starttime }}</td>
-                  <td>{{ reservation.endtime }}</td>
+                  <td>{{ reservation.startTime }}</td>
+                  <td>{{ reservation.endTime }}</td>
                   <td>{{ reservation.status }}</td>
                   <td>{{ reservation.description }}</td>
-                  <td><button (click)="cancelReservation(reservation.ID, reservation.status)" data-toggle="modal" data-target="#geslaagdModal">Annuleer</button></td>  
+                  <td><button (click)="cancelReservation(reservation, reservation.status)" data-toggle="modal" data-target="#geslaagdModal">Annuleer</button></td>  
           </tr>
       </tbody>
   </table>
