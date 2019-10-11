@@ -34,3 +34,14 @@ button{
   margin: 5px;
 
 }
+
+#groen{
+  color: green;
+  cursor: pointer;
+  
+}
+
+#rood{
+  color: red;
+  cursor: pointer;
+}
