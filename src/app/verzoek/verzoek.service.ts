@@ -19,7 +19,7 @@ export class VerzoekService {
 
   // block times where students can choose from
   Blocktimes:any = [
-    {startTime: 0,endTime:5, name:'08:00 - 10:00',used:'false'},
+    {startTime: 8,endTime:10, name:'08:00 - 10:00',used:'false'},
     {startTime: 10,endTime:12,name:'10:00 - 12:00',used:'false'},
     {startTime: 12,endTime:14,name:'12:00 - 14:00',used:'false'},
     {startTime: 14,endTime:16,name:'14:00 - 16:00',used:'false'},
