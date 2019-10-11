@@ -4,22 +4,26 @@
 
 <div class="wrapper">
 
+  
+
     <mat-form-field class="example-full-width" class="fixed-calendar" >
-        <input type="text"  matInput [matDatepickerFilter]="myFilter"[min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Kies een datum" [(ngModel)]="verzoek.Datum"
-        (dateChange)="someMethodName($event)" required>
+    
+        <input matInput [matDatepickerFilter]="myFilter"[min]="minDate" [max]="maxDate" [matDatepicker]="picker"  placeholder="Kies een geldige datum" [(ngModel)]="request.date"
+        (dateChange)="getAvailableTimes($event)" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker></mat-datepicker>
     </mat-form-field>
 
+    <div *ngIf=" filterRequests?.length != this.VerzoekService.Blocktimes.length ;else noVerzoeken">
 <div class="pop-up">
   
   <mat-radio-group
          aria-labelledby="example-radio-group-label"
          class="example-radio-group"
-         [(ngModel)] = "verzoek.BeginTijd"
+         [(ngModel)] = "request.startTime"
          >
-         <mat-radio-button  class="example-radio-button" *ngFor="let tijd of tijden" [value]="tijd.beginTijd"  [disabled]="tijd.used" aria-required>
-             {{tijd.name}} 
+         <mat-radio-button  class="example-radio-button" *ngFor="let time of this.VerzoekService.Blocktimes" [value]="time.startTime"  [disabled]="time.used" required>
+             {{time.name}} 
          </mat-radio-button>
   </mat-radio-group>
 
@@ -28,14 +32,18 @@
 
          
 <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Leave a comment" [(ngModel)] = "verzoek.Motivatie" required></textarea>
-  </mat-form-field>
+    <textarea matInput placeholder="laat een comment achter" name="description" [(ngModel)] = "request.description" #description="ngModel" required></textarea>
+ </mat-form-field>
   
   <div class="example-button-row">
-<button (click) ='createVerzoek()' mat-raised-button>Save</button>
+<button (click) ='createRequest()' mat-raised-button>Save</button>
   </div>
-      
+    </div>
 
+    <ng-template #noVerzoeken>
+        <hr>
+        <h5>Op deze datum zijn geen tijden beschikbaar kies een andere datum</h5>
+    </ng-template>
 
 
 

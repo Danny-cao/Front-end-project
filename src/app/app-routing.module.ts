@@ -60,6 +60,14 @@ const routes: Routes = [
     component: ScannenComponent
   },
   {
+    path: 'reservationCancel',
+    component: ReservationsCancelComponent
+  },
+  {
+    path: 'reservationReview',
+    component: ReservationsReviewedComponent
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'

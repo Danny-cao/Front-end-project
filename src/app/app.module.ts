@@ -39,6 +39,7 @@ import { ScannenComponent } from './qrscan/scannen.component';
 import { ScannenService } from './scannen.service';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { QRCodeModule } from 'angularx-qrcode';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     MaterialModule,
     AngularMaterialModule,
     ZXingScannerModule,
-    QRCodeModule
+    QRCodeModule,
+    ToastrModule.forRoot()
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},VerzoekService, AuthGuard, ReservationsService, ScannenService],
   bootstrap: [AppComponent],

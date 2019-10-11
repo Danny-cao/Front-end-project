@@ -7,58 +7,40 @@
         <tr>
           <th>Aanvraagdatum</th>
           <th>Reserveringsdatum</th>
+          <th>Studentmail</th>
           <th>Begintijd</th>
           <th>Eindtijd</th>
+          <th>Motivatie</th>
+          <th>Status</th>
           <th>Accepteren</th>
           <th>Afwijzen</th>
         </tr>
-        <tr *ngFor = "let verzoek of filterVerzoeken">
+        <tr *ngFor = "let request of filterVerzoeken">
      
-          <td>{{verzoek.AanvraagDatum}}</td>
-          <td>{{verzoek.Datum}}</td>
-          <td>{{verzoek.BeginTijd}}:00</td>
-          <td>{{verzoek.EindTijd}}:00</td>
-          <td  (click)="Goedkeuren(verzoek)">Goedkeuren</td>
-          <td  (click) = "Afkeuren(event,verzoek)">Afkeuren 
-              <div *ngIf = "editState && AfkeurEdit.id == verzoek.id">
+          <td>{{request.requestDate}}</td>
+          <td>{{request.date}}</td>
+          <td>{{request.emailStudent}}</td>
+          <td>{{request.startTime}}:00</td>
+          <td>{{request.endTime}}:00</td>
+          <td>{{request.description}}</td>
+          <td>{{request.status}}</td>
+          <td id="groen" (click)="Accept(request)">Goedkeuren</td>
+          <td id="rood"  (click) = "openCommensection(event,request)">Afkeuren 
+              <div *ngIf = "editState && RejectEdit.id == request.id">
                   <mat-form-field class="example-full-width">
-                      <textarea matInput placeholder="Leave a comment" [(ngModel)] = "verzoek.comment" required></textarea>
+                      <textarea matInput placeholder="Leave a comment" [(ngModel)] = "request.teacherComment" required></textarea>
                     </mat-form-field>
                     
                     <div class="example-button-row">
-                  <button (click) ='updateAfkeuren($event,verzoek)' mat-raised-button>Save</button>
-                  <button mat-raised-button>Annuleren</button>
+                  <button (click) ='Reject($event,request)' mat-raised-button>Save</button>
+                 
                     </div>
-    
               </div>
           </td>
-        
-
-        </tr>
-      
-      
-        
-        
+        </tr>    
         <tr>
-    
-           
-    
-        
 
-        
-            
-        
-   
-        </table>
-
-       
-       
-
-        
-      
-  
-      
-    
+        </table>    
 </div>
 
 
