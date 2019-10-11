@@ -27,7 +27,11 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
+<<<<<<< HEAD
                "node_modules/ngx-toastr/toastr.css"
+=======
+              "node_modules/ngx-toastr/toastr.css"
+>>>>>>> 643f076eaedef8a67107311d9d8d0e34984adbf6
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
