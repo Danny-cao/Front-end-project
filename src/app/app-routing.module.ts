@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
@@ -6,6 +6,8 @@ import { HomeComponent } from './home/home.component';
 import { ValidationComponent } from './admin/validation/validation.component';
 import { VerzoekComponent } from './verzoek/verzoek.component';
 import { BeoordelingComponent } from './beoordeling/beoordeling.component';
+import { ReservationsCancelComponent } from './reservations/reservations-cancel/reservations-cancel.component';
+import { ReservationsReviewedComponent } from './reservations/reservations-reviewed/reservations-reviewed.component';
 
 
 const routes: Routes = [
@@ -32,6 +34,14 @@ const routes: Routes = [
   {
     path: 'beoordeling',
     component: BeoordelingComponent
+  },
+  {
+    path: 'reservationCancel',
+    component: ReservationsCancelComponent
+  },
+  {
+    path: 'reservationReview',
+    component: ReservationsReviewedComponent
   },
   {
     path: '',
