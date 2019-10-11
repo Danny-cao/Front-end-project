@@ -8,6 +8,7 @@ export class Request{
     description:String;
     teacherComment?:String;
     emailStudent?:String;
+    qrcode?:String;
 
 
 
