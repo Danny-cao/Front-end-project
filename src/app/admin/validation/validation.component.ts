@@ -19,6 +19,7 @@ export class ValidationComponent implements OnInit {
 
   ngOnInit() {
 
+    // Logged in admin user has access otherwise sen user back to login.
     this.auth.getUserState().subscribe( user => {
       this.user = user;
       if(user == null){

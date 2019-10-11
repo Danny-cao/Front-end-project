@@ -22,6 +22,7 @@ export class AuthService {
     private db: AngularFirestore,
     private router: Router) { }
 
+  // Get user state
   getUserState(){
     return this.afAuth.authState;
   }
@@ -32,30 +33,33 @@ export class AuthService {
 
   checkUserEnabled(email: string, password: string){
 
-    // Als gebruikers status op "true" staat dan login anders terug sturen naar homepagina.
-
+    // Als gebruikers status op "activated" staat dan login anders terug sturen naar homepagina.
     this.db.collection("Users").doc(email).valueChanges().subscribe(val => {
 
+      // check undefined for users that prob. dont have account
       if(val == undefined){
         var error = JSON.parse('{"message": "Je hebt nog geen account"}');
         this.eventAuthError.next(error);
       }
 
-      console.log(val['status']);
+      // if status is activated user has access
       if(val['status'] == 'activated'){
         this.login(email, password);
       }
+      // disabled users can't login yet, have to be validated
       else if(val['status'] == 'disabled'){
         var error = JSON.parse('{"message": "Je account is door de beheerder nog niet geactiveerd"}');
         this.eventAuthError.next(error);
       }
       else{
+        // declined users can't ever login
         var error = JSON.parse('{"message": "Je account is door de beheerder afgewezen."}');
         this.eventAuthError.next(error);
       }
     });
   }
 
+  // login and send to home, otherwise catch the error
   login(email: string, password: string){
 
     this.afAuth.auth.signInWithEmailAndPassword(email, password).catch(error => {
@@ -68,6 +72,7 @@ export class AuthService {
     })    
   }
 
+  // Create user with firstname and lastname. send user back to homepage.
   createUser(user) {
     this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then( userCredential =>{
       this.newUser = user;
@@ -86,6 +91,7 @@ export class AuthService {
 
   }
 
+  // insert User data, role to student and status to disabled to not allow login before admin activation
   insertUserData(userCredential: firebase.auth.UserCredential){
     return this.db.doc(`Users/${this.newUser.email}`).set({
       email: this.newUser.email,
@@ -100,12 +106,13 @@ export class AuthService {
     return this.afAuth.auth.signOut();
   }
 
+  // checkUserRole for menu. 
   checkUserRole(email){
     this.registration = this.db.collection("Users").doc(email).valueChanges();
     return this.registration;
   }
 
-  // change role naming later.
+  // pages only accessible for admin (beheerder)
   accessOnlyAdmin(email){
 
     this.db.collection("Users").doc(email).valueChanges().subscribe(val => {
@@ -115,7 +122,7 @@ export class AuthService {
     });
   }
 
-  // change role naming later.
+  // pages only accesible for user (Student)
   accessOnlyUser(email){
     this.db.collection("Users").doc(email).valueChanges().subscribe(val => {
       if(val['role'] != 'student'){
@@ -124,6 +131,7 @@ export class AuthService {
     });
   }
 
+  // Error message for registration
   basicErrorRegistration(){
     var error = JSON.parse('{"message": "Email moet eindigen met @hu.nl, voornaam en achternaam moet ingevuld worden"}');
     this.eventAuthError.next(error);
