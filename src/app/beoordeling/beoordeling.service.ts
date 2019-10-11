@@ -46,16 +46,17 @@ export class BeoordelingService {
 
 
 
-  // request gets the status accepted
+  // request gets the status accepted and qrcode
   acceptRequest(request:Request){
     this.requestDoc = this.afs.doc(`Reservations/${request.id}`);
     this.requestDoc.update({
-      status: 'Accepted'
+      status: 'Accepted',
+      qrcode: request.id
     })
 
   }
 
-  // request is not accepted and request gets the status rejected
+  // request is not accepted and request gets the status rejected and de teacher/beheerder needs to leave a comment on why
   rejectRequest(request:Request){
     this.requestDoc = this.afs.doc(`Reservations/${request.id}`);
     this.requestDoc.update({
