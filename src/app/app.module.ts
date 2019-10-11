@@ -24,6 +24,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material';
 import { VerzoekComponent } from './verzoek/verzoek.component';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { VerzoekComponent } from './verzoek/verzoek.component';
      BrowserModule,
      BrowserAnimationsModule,
     MaterialModule,
+    ToastrModule.forRoot()
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},VerzoekService],
   bootstrap: [AppComponent]
