@@ -1,12 +1,9 @@
-import { Component, Input, EventEmitter, Output, OnInit, NgModule } from '@angular/core'
+import { Component, OnInit, EventEmitter, Output} from '@angular/core'
 import { MatDatepickerInputEvent } from '@angular/material';
 import {VerzoekService} from  './verzoek.service';
-import {Verzoek} from './verzoek.model';
-import { Observable } from 'rxjs';
-import * as moment from 'moment';
-
-
-
+import {Request} from './verzoek.model';
+import { AuthService } from '../auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -17,96 +14,90 @@ import * as moment from 'moment';
 })
 
 
-export class VerzoekComponent{ //oninit implementeren {
+
+
+export class VerzoekComponent implements OnInit{ 
+
+user: firebase.User;
   
-
-
+// Calendar starts from currentDate
 minDate = new Date();
 
-
- @Output() 
- dateChange:EventEmitter<MatDatepickerInputEvent<any>>;
+//The (dateChange) event will fire whenever the user  chooses a date from the calendar.
+@Output() 
+dateChange:EventEmitter<MatDatepickerInputEvent<any>>;
  
- 
+// Prevent Saturday and Sunday from being selected in the calendar.
 myFilter = (d: Date): boolean => {
   const day = d.getDay();
-  // Prevent Saturday and Sunday from being selected.
   return day !== 0 && day !== 6;
 }
 
-
-private tijden:any[] = [
-  {beginTijd: 8, eindTijd:10, name:'08:00 - 10:00',used:'false'},
-  {beginTijd: 10, eindTijd:12, name:'10:00 - 12:00',used:'false'},
-  {beginTijd: 12, eindTijd:14, name:'12:00 - 14:00',used:'false'},
-  {beginTijd: 14, eindTijd:16, name:'14:00 - 16:00',used:'false'},
-  {beginTijd: 16, eindTijd:18, name:'16:00 - 18:00',used:'false'},
-  {beginTijd: 18, eindTijd:20, name:'18:00 - 20:00',used:'false'},
-
-]
+requests:Request[];
+filterRequests:Request[];
 
 
-verzoeken:Verzoek[];
-filterVerzoeken:Verzoek[];
+constructor(private VerzoekService:VerzoekService,private auth: AuthService,private toastr:ToastrService){}
+
+ngOnInit() {
+  this.auth.getUserState().subscribe( user => {
+    this.user = user;
+  })
+}
 
 
-constructor(private VerzoekService:VerzoekService){}
-ngOnInit() {}
-
-
-someMethodName(date:any) { 
-  this.VerzoekService.getVerzoeken(date.targetElement.value).subscribe(verzoeken =>{
-    this.verzoeken = verzoeken;
-    this.filterVerzoeken =  this.verzoeken.filter(function(verzoek) {
-       return verzoek.Status == "Goedgekeurd";
-    });   
-    console.log(this.filterVerzoeken);
-    this.tijden.forEach((el)=>{el.used = "false";})
-    for(let verzoek of this.filterVerzoeken){
-      for(let tijd of this.tijden){
-        if(verzoek.BeginTijd == tijd.beginTijd && verzoek.EindTijd == tijd.eindTijd){
-          tijd.used = 'true';
-        }
-        else if(tijd.used == "true"){
-          tijd.used = "true";
-      }
-        else{
-          tijd.used = 'false';
-        }
-      }
+ // get available times on a selected date
+  getAvailableTimes(date:any) {
+      this.VerzoekService.getRequests(date.targetElement.value).subscribe(requests =>{
+      this.requests = requests;
+      this.filterRequests =  this.requests.filter(function(request) {
+         return request.status == "Accepted" || request.status == "Inbehandeling";
+      });   
+      console.log(this.filterRequests);
+      this.VerzoekService.Blocktimes.forEach((el)=>{el.used = "false";})
+      for(let request of this.filterRequests){
+        for(let time of this.VerzoekService.Blocktimes){
+          if(request.startTime == time.startTime && request.endTime == time.endTime){
+            time.used = 'true';
+          }
     
-    }
-
-  });
+          else if(time.used == "true"){
+            time.used = "true";
+        }
+          else{
+            time.used = 'false';
+          }
+        }
+      
+      }
+  
+    });
 
 
 }
 
 
-verzoek:Verzoek = new Verzoek();
-
-createVerzoek(){
-  this.VerzoekService.saveVerzoek(this.verzoek);
-  this.verzoek = new Verzoek();
-
-}
-
-
-
-
-
-
-
-
-
-
+// save request
+request:Request = new Request();
+createRequest(){
+  console.log(this.request.date);
+  if(this.request.description == null || this.request.date == null|| this.request.startTime == null){
+    this.toastr.error('Vul alle velden correct in!');
+  }
+  else{
+  this.VerzoekService.saveRequest(this.request,this.user.email);
+  this.toastr.success('Uw verzoek is in behandeling genomen!');
+ 
  
 
-// maak uiteindelijk 1 functie
+
+  }
+
+  }
 
   
-
   
-  
-
 }
+
+
+
