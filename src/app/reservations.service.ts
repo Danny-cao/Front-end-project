@@ -17,6 +17,7 @@ export class ReservationsService {
         
     }
     
+    //uses the user's email to find the matching reservations.
     getReservations(email: string) {
         return this.reservations = this.afs.collection('Reservations', ref => ref.where('emailStudent', '==', email)).valueChanges();
     }

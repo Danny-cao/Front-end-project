@@ -31,9 +31,14 @@ export class ReservationsComponent implements OnInit {
 
   ngOnInit(){
 
+    //finds the user that is currently signed in.
     this.auth.getUserState().subscribe( user => {
       this.user = user;
+
+      //if the user exists.
       if(user != null){
+
+        //finds the reservation tied to the current users email.
         this.reservationsService.getReservations(user.email).subscribe(reservations => {
           this.reservations = reservations;
         });
@@ -45,10 +50,13 @@ export class ReservationsComponent implements OnInit {
   }
 
   openDialog(el): void {
+
+    //gets the self-made attributes from the html.
     this.resStatus = el.getAttribute('status');
     this.resComment = el.getAttribute('comment');
     this.resQR = el.getAttribute('qrcode');
 
+    //sends the data with the modal to be used in the front-end.
     const dialogRef = this.dialog.open(MyModalComponent, {
       width: '500px',
       data: { resStatus: this.resStatus, resComment: this.resComment, resQR: this.resQR }

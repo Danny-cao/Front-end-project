@@ -18,6 +18,7 @@ export class ScannenService {
         
     }
     
+    //uses the qrcode find from the scanner to find the matching reservating with that qrcode id.
     checkQRCode(qrcode: string) {
         return this.qrFromDB = this.afs.collection('Reservations', ref => ref.where('qrcode', '==', qrcode)).valueChanges();
     }
