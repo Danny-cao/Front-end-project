@@ -1,15 +1,14 @@
-export class Verzoek{
+export class Request{
     id?:String;
-    Datum?:String;
-    AanvraagDatum?:String;
-    BeginTijd:number;
-    EindTijd:number; 
-    Status:String;
-    Motivatie:String;
-    comment?:String;
+    date?:String;
+    requestDate?:String;
+    startTime:number;
+    endTime:number; 
+    status:String;
+    description:String;
+    teacherComment?:String;
+    emailStudent?:String;
 
-
-   
 
 
 
